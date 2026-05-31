@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue Basics</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="container pt-5">
+      <div class="card ">
+
+        <h1 :style="{
+          color: fieldValue.length > 3 ? 'green' : 'darkblue'
+        }">
+        {{mainTitle}}
+      </h1>
+
+        <div class="form-control">
+          <input type="text" :placeholder="fieldPlaceholder" :value="fieldValue"
+            @input="handleChangeInput" @keypress.enter="handleAddNote" />
+            <p class="err" v-if=" error !== '' ">{{ error }}</p>
+        </div>
+        <button class="btn" @click="handleAddNote">Add</button>
+        <hr>
+
+        <ul class="list" v-if="notes.length !== 0">
+          <li class="list-item" v-for="(note, i) in notes">
+            {{ note.toUpperCase() }}
+
+            <button class="btn danger" @click="handleDeleteNote(note, i)">
+              Delete
+            </button>
+          </li>
+
+          <hr>
+
+          <li>
+            <b>Общее количество: {{notes.length}}</b> | Удвоенное: {{ doubleCounter }}
+          </li>
+        </ul>
+        <div v-else>Заметок нет, самое время добавить одну!</div>
+
+        <hr>
+        <input type="text" v-model="vModelField">
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+
+</body>
+
+</html>
