@@ -11,7 +11,7 @@ import TheNavbar from './components/TheNavbar.vue'
 export default {
   components: { TheNavbar },
   data: () => ({
-    isRegistred: false,
+    isRegistred: true,
     logoutRoute: null
   }),
   methods: {
