@@ -10,7 +10,15 @@ export default createRouter({
   routes: [
     { path: '/login', component: Login, alias: '/' },
     { path: '/dashboard', component: Dashboard },
-    { path: '/forget', component: Forget },
+    {
+      path: '/forget',
+      component: Forget,
+      beforeEnter(to, from, next) {
+        console.log(to)
+        console.log(from)
+        next()
+      },
+    },
     { path: '/mail/', component: Mail, children: [{ path: ':mailId', component: AppEmailBody }] },
     { path: '/:notFound(.*)', component: App404 },
   ],
