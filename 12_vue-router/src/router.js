@@ -8,7 +8,7 @@ export default createRouter({
   routes: [
     { path: '/login', component: Login, alias: '/' },
     { path: '/dashboard', component: Dashboard },
-    { path: '/mail/:mailId', component: Mail, name: 'mail' },
+    { path: '/mail/:mailId?', component: Mail },
     { path: '/forget', component: Forget },
   ],
   history: createWebHistory(),

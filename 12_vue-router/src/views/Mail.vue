@@ -10,7 +10,10 @@
       </ul>
     </div>
     <div class="card-body">
-      <app-email-body :mailId="$route.params.mailId"></app-email-body>
+      <app-email-body :id="$route.params.mailId" v-if="$route.params.mailId"></app-email-body>
+      <p v-else>Письма пока не выбраны</p>
+    </div>
+    <div class="card-body">
     </div>
   </div>
 </template>
@@ -19,8 +22,10 @@
 import AppEmailBody from '../components/AppEmailBody.vue'
 
 export default {
-  // components: {AppEmailBody},
   inject: ['emails'],
+  mounted() {
+    console.log(this.emails)
+  },
   components: {
     AppEmailBody
   }
