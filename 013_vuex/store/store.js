@@ -1,4 +1,4 @@
-import { createStore, createLogger } from 'vuex'
+import { createLogger, createStore } from 'vuex'
 import counterState from './modules/counterState'
 import usersState from './modules/usersState'
 

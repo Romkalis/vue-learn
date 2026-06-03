@@ -8,7 +8,7 @@ export default {
       state.counter++
     },
     decrement: (state) => {
-      state.counter--
+      state.counter-
     },
   },
   actions: {
