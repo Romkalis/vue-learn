@@ -25,6 +25,7 @@ export default {
       // this.$store.commit('counterState/increment')
     },
     decrement() {
+      this.$store.commit('counterState/decrement')
     }
   },
   components: { TheNavbar }
