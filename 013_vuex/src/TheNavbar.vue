@@ -1,7 +1,8 @@
 <template>
   <header class="navbar">
-    Vuex Counter {{ tripled }} <button class="btn" @click="$store.commit('increment')">Plus one
+    Vuex Counter {{ doubled }} <button class="btn" @click="$store.commit('counterState/increment')">Plus one
       Btn</button>
+
   </header>
 </template>
 
@@ -10,12 +11,13 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters({
+    ...mapGetters('counterState', {
       doubled: 'doubleCounter',
-    })
+    }),
+    ...mapGetters('users', ['usersGetter'])
     // doubled() {
     //   return this.$store.getters.doubleCounter
     // },
-  }
+  },
 }
 </script>
