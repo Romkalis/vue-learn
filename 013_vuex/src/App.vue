@@ -21,8 +21,8 @@ export default {
   },
   methods: {
     increment() {
-      this.$store.commit('counterState/add', 5)
-      this.$store.commit('counterState/increment')
+      this.$store.dispatch('counterState/add', 5)
+      // this.$store.commit('counterState/increment')
     },
     decrement() {
     }

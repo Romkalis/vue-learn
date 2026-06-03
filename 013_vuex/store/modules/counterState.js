@@ -13,8 +13,7 @@ export default {
   },
   actions: {
     add: (context, payload) => {
-      context.counter += payload
-      console.log(payload)
+      context.state.counter += payload
     },
   },
 
