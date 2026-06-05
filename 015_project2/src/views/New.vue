@@ -37,6 +37,12 @@ const isValid = computed(() => {
   return !!taskDedlineDate.value.trim() && !!taskName.value.trim() && !!taskDescription.value.trim()
 })
 
+const defineStatus = () => {
+  if (Date.now() >= Number(taskDescription.value)) {
+    return 'danger'
+  }
+  return 'primary'
+}
 
 const onSubmit = () => {
   // отправляем данные в стор
@@ -45,7 +51,7 @@ const onSubmit = () => {
     title: taskName.value,
     date: taskDedlineDate.value,
     text: taskDescription.value,
-    status: 'primary'
+    status: defineStatus()
   })
   //  сбрасываем форму
   taskName.value = ''
