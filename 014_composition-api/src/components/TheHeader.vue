@@ -12,6 +12,9 @@
       <li>
         <router-link to="/card">Карточка</router-link>
       </li>
+      <li>
+        <router-link to="/vuex">VUEX</router-link>
+      </li>
     </ul>
   </header>
 </template>
