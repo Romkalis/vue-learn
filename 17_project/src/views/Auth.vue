@@ -1,6 +1,10 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
   <div>
-    HOME
+    AUTH
   </div>
 </template>
 
