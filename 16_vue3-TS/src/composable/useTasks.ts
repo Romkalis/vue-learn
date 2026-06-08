@@ -1,5 +1,5 @@
 import { useFetch } from './useFetch'
-import { Ref } from 'vue'
+import type { Ref } from 'vue'
 
 type Task = {
   userId: number

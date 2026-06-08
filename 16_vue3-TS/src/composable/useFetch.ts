@@ -1,4 +1,5 @@
-import { Ref, ref } from 'vue'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
 
 type Request = () => Promise<void>
 type Response<T> = Ref<T | undefined>
