@@ -1,14 +1,12 @@
-import { ref } from 'vue'
+import { ref, onMounted, Ref } from 'vue'
 import { useFetch } from './useFetch'
 
-export async function useUsers() {
-  const { response, request } = useFetch('https://jsonplaceholder.typicode.com/users')
-  let loading = ref<boolean>(false)
+export function useUsers() {
+  const { response, request, isLoading } = useFetch('https://jsonplaceholder.typicode.com/users')
 
-  if (!loading.value) {
-    await request()
-    loading.value = true
+  return {
+    users: response,
+    request,
+    isLoading,
   }
-
-  return response.value
 }

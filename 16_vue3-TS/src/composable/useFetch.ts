@@ -1,10 +1,12 @@
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 
 export function useFetch(url: RequestInfo, options?: RequestInit) {
   const response = ref(null)
+  const isLoading: Ref<boolean> = ref(false)
 
   const request = async () => {
     try {
+      isLoading.value = true
       const res = await fetch(url, options)
 
       if (!res.ok) {
@@ -12,7 +14,9 @@ export function useFetch(url: RequestInfo, options?: RequestInit) {
       }
 
       response.value = await res.json()
+      isLoading.value = false
     } catch (e: unknown) {
+      isLoading.value = false
       if (e instanceof Error) {
         console.error(e.message)
       } else {
@@ -24,5 +28,6 @@ export function useFetch(url: RequestInfo, options?: RequestInit) {
   return {
     response,
     request,
+    isLoading,
   }
 }
