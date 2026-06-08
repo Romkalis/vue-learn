@@ -1,18 +1,18 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import UsersList from '../components/UsersList.vue';
-import { useUsers } from '../composable/useUsers';
-import { onMounted } from 'vue';
-
-
-const { users, request, isLoading } = useUsers()
-onMounted(() => request())
 
 </script>
 
 <template>
   <div class="card">
     <h1>Пользователи</h1>
-    <p>{{ isLoading }}</p>
-    <UsersList :users="users || []" />
+    <Suspense>
+      <template #default>
+        <UsersList />
+      </template>
+      <template #fallback>
+        <p>Loading...</p>
+      </template>
+    </Suspense>
   </div>
 </template>

@@ -1,11 +1,16 @@
-<script setup lang="ts">
-type User = { id: number; name: string }
-const props = defineProps<{ users: User[] }>()
+<script lang="ts" setup async>
+import { useUsers } from '../composable/useUsers';
+
+
+const { users } = await useUsers()
+console.log(users)
+
+
 </script>
 
 <template>
   <ul class="list">
-    <li class="list-item" v-for="user in props.users" :key="user.id">
+    <li class="list-item" v-for="user in users" :key="user.id">
       {{ user.name }}
     </li>
   </ul>
