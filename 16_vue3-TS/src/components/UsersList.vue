@@ -3,7 +3,8 @@ import { useUsers } from '../composable/useUsers';
 
 
 const { users } = await useUsers()
-console.log(users)
+
+users.value?.map(u => console.log(u))
 
 
 </script>

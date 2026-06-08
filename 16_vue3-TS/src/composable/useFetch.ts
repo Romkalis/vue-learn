@@ -1,8 +1,17 @@
 import { Ref, ref } from 'vue'
 
-export function useFetch(url: RequestInfo, options?: RequestInit) {
-  const response = ref(null)
-  const isLoading: Ref<boolean> = ref(false)
+type Request = () => Promise<void>
+type Response<T> = Ref<T | undefined>
+type isLoading = Ref<boolean>
+interface UsableFetch<T> {
+  request: Request
+  isLoading: isLoading
+  response: Response<T>
+}
+
+export function useFetch<T>(url: RequestInfo, options?: RequestInit): UsableFetch<T> {
+  const response: Response<T> = ref(undefined)
+  const isLoading: isLoading = ref(false)
 
   const request = async () => {
     try {
