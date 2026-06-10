@@ -1,40 +1,33 @@
 <template>
-  <form class="card">
+  <form class="card" @submit.prevent="onSubmit">
     <h1>Войти в систему</h1>
 
     <div class="form-control">
       <label for="email">
-        <span class="error" v-if="errors.name">{{ errors.name }}</span>
+        <span class="error" v-if="nError">{{ nError }}</span>
       </label>
-      <input type="text" v-model="form.name" placeholder="name" id="name" />
+      <input type="text" v-model="name" placeholder="name" id="name" name="name" @blur="nBlur" />
     </div>
 
     <div class="form-control">
       <label for="password">
-        <span class="error" v-if="errors.password">{{ errors.password }}</span>
+        <span class="error" v-if="pError">{{ pError }}</span>
       </label>
-      <input type="password" v-model="form.password" placeholder="Enter password" id="password" />
+      <input type="password" v-model="password" placeholder="Enter password" id="password" name="password"
+        @blur="pBlur" />
     </div>
 
-    <button class="btn primary" @click.prevent="onSubmit">Enter</button>
+    <button class="btn primary" type="submit">Enter</button>
   </form>
 </template>
 
 <script setup lang="ts">
-import z from 'zod';
-import { reactive } from 'vue';
-// import { useForm, useField } from 'vee-validate';
+import { z } from 'zod';
+import { useForm, useField } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod' // это переходник-адаптер под ZOD, без него  не работает, ЗОД должен быть не ВЫШЕ 3й версии, выше пока что не работает
 
-type FormType = z.infer<typeof formSchema>
 
-const form = reactive<FormType>({
-  name: '',
-  password: ''
-})
-const errors = reactive({
-  name: '',
-  password: '',
-})
+defineOptions({ name: 'AuthView' })
 
 const formSchema = z.object({
   name: z
@@ -46,34 +39,18 @@ const formSchema = z.object({
     .max(8, { message: "Максимум 8 знаков" })
 })
 
-function cleanErrors() {
-  errors.name = '';
-  errors.password = '';
-}
+// описываем схему
 
 
-const onSubmit = () => {
-  try {
-    cleanErrors()
-    const result = formSchema.safeParse(form)
+const { handleSubmit } = useForm({ validationSchema: toTypedSchema(formSchema) }) // прописываем валидацию при нажатии на кнопку
+const { value: name, errorMessage: nError, handleBlur: nBlur } = useField('name')
+// под каждое поле подбираем значения 1- имяполя, связываем через v-model, 2 - ошибка которую выкинет, связываем с полем ошибки, 3 - использование блюра, чтобы ошибки валидировались, при потере фокуса полем.
+const { value: password, errorMessage: pError, handleBlur: pBlur } = useField('password')
 
-    if (!result.success) {
-      // console.log('Error!: ', result.error.flatten().fieldErrors)
-      const receivedErrors = result.error.flatten().fieldErrors
-
-      if (receivedErrors.password) {
-        errors.password = receivedErrors.password[0] || ''
-      }
-      if (receivedErrors.name) {
-        errors.name = receivedErrors.name[0] || ''
-      }
-    }
-  } catch (e: unknown) {
-    if (e instanceof Error) {
-      console.warn(e?.message)
-    }
-  }
-}
+const onSubmit = handleSubmit(val => {
+  // если все валидно - получаем val - объект со значениями
+  console.log('Валидно!', val)
+})
 </script>
 
 <style scoped>
