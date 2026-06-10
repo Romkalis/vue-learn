@@ -4,9 +4,7 @@
 
 <template>
   <div class="container center pt-5">
-    <div class="card">
-      <slot />
-    </div>
+    <slot />
   </div>
 </template>
 

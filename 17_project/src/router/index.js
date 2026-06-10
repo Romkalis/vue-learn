@@ -3,7 +3,7 @@ import Help from '@/views/Help.vue'
 import Home from '@/views/Home.vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
-import NotFoundLayout from '@/layouts/NotFoundLayout.vue'
+import NotFoundPage from '@/views/NotFoundPage.vue'
 
 const routes = [
   {
@@ -21,22 +21,17 @@ const routes = [
     alias: '/',
     component: Home,
     meta: {
-      layout: MainLayout,
+      layout: AuthLayout,
     },
   },
   {
     path: '/help',
     name: 'Help',
     component: Help,
-    meta: {
-      layout: MainLayout,
-    },
   },
   {
     path: '/:notFound(.*)',
-    meta: {
-      layout: NotFoundLayout,
-    },
+    component: NotFoundPage,
   },
 ]
 

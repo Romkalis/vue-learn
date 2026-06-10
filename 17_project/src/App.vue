@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+// import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import NotFoundLayout from './layouts/NotFoundLayout.vue'
-
 
 const route = useRoute()
-
-const layout = computed(() => {
-  return route?.meta?.layout || NotFoundLayout
-})
+// const meta = computed(() => route.meta.layout)
+// console.log(meta)
+// генерим лейаут в зависимости от метаданных переданы в роут (можно написать switch, можно как сейчас - просто передавать уже готовый компонент лейаута)
 </script>
 
 <template>
-  <component :is="layout">
+  <h1>layouts page</h1>
+  <component :is="route.meta.layout">
     <router-view />
   </component>
 </template>

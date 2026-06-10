@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <div>
-    AUTH
+  <div class="card">
+    <h2>authorization</h2>
   </div>
 </template>
 
