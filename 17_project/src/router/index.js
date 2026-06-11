@@ -32,12 +32,18 @@ const routes = [
     path: '/help',
     name: 'Help',
     component: Help,
-    auth: true,
+    meta: {
+      layout: AuthLayout,
+      auth: true,
+    },
   },
   {
     path: '/:notFound(.*)',
     component: NotFoundPage,
-    auth: true,
+    meta: {
+      layout: AuthLayout,
+      auth: true,
+    },
   },
 ]
 
@@ -46,16 +52,20 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
   const isAuthNeed = to.meta.auth
   const isAuthenticated = store.getters['auth/isAuthenticated']
 
   if (isAuthNeed && isAuthenticated) {
-    next()
+    //next устарел в роутере 4й версии, сейчас используется ретерн
+    // next()
+    return true
   } else if (isAuthNeed && !isAuthenticated) {
-    next('/auth?message=auth')
+    return { path: '/auth?message=auth' }
+    // next('/auth?message=auth')
   } else {
-    next()
+    // next()
+    return true
   }
 })
 

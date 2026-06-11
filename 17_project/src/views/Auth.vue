@@ -42,7 +42,6 @@ if (route.query.message === 'auth') {
 }
 
 const { onSubmit, nError, name, nBlur, pError, password, pBlur, isButtonDisabled, isLocked, isSubmitting, submitCount, localSubmitCount } = useLoginForm()
-
 const store = useStore()
 console.log(store.state.auth.token)
 

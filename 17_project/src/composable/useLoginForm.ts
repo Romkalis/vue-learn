@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod' // это переходник-адаптер под ZOD, без него  не работает, ЗОД должен быть не ВЫШЕ 3й версии, выше пока что не работает
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default function useLoginForm() {
   // описываем схему
@@ -17,6 +18,7 @@ export default function useLoginForm() {
       .min(4, 'Минимум 4 знака') // не обязательно использовать объект, если значений не много
       .max(8, { message: 'Максимум 8 знаков' }),
   })
+  const router = useRouter()
 
   // хук useForm- связывает нашу форму
   // хук useFiled используется для привязки к полям
@@ -60,6 +62,7 @@ export default function useLoginForm() {
   const onSubmit = handleSubmit(async (values) => {
     checkIsButtonAvailable()
     store.dispatch('auth/login', values) // передаем данные полученные из формы при диспатче
+    router.push('/')
   })
 
   onBeforeUnmount(() => {
