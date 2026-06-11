@@ -33,6 +33,13 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import useLoginForm from '../composable/useLoginForm.ts'
+import { useRoute } from 'vue-router';
+
+//показываем ошибку, что надо авторизоваться
+const route = useRoute();
+if (route.query.message === 'auth') {
+  console.error("Надо авторизоваться")
+}
 
 const { onSubmit, nError, name, nBlur, pError, password, pBlur, isButtonDisabled, isLocked, isSubmitting, submitCount, localSubmitCount } = useLoginForm()
 

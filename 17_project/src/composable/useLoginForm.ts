@@ -39,12 +39,6 @@ export default function useLoginForm() {
 
   const isButtonDisabled = computed(() => isSubmitting.value || isLocked.value)
 
-  const submitValidForm = handleSubmit((val) => {
-    console.log('Валидно!', val)
-    // если все валидно - получаем val - объект со значениями
-    return val
-  })
-
   const lockButton = () => {
     isLocked.value = true
     clearTimeout(unlockTimer)
@@ -54,17 +48,19 @@ export default function useLoginForm() {
     }, LOCK_MS)
   }
 
-  const onSubmit = async () => {
+  const checkIsButtonAvailable = () => {
     if (isLocked.value) return
     localSubmitCount.value += 1
     if (localSubmitCount.value > MAX_CLICKS) {
       lockButton()
       return
     }
-
-    store.dispatch('auth/login', 'data')
-    await submitValidForm()
   }
+
+  const onSubmit = handleSubmit(async (values) => {
+    checkIsButtonAvailable()
+    store.dispatch('auth/login', values) // передаем данные полученные из формы при диспатче
+  })
 
   onBeforeUnmount(() => {
     clearTimeout(unlockTimer)

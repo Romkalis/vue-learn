@@ -14,8 +14,9 @@ export default {
     },
   },
   actions: {
-    login: async ({ commit }) => {
+    login: async ({ commit }, payload) => {
       commit('setToken', 'TEST TOKEN')
+      console.log(payload)
     },
   },
   getters: {
