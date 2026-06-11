@@ -2,8 +2,11 @@ import { computed, onBeforeUnmount, ref } from 'vue'
 import { z } from 'zod'
 import { useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod' // это переходник-адаптер под ZOD, без него  не работает, ЗОД должен быть не ВЫШЕ 3й версии, выше пока что не работает
+import { useStore } from 'vuex'
+
 export default function useLoginForm() {
   // описываем схему
+  const store = useStore()
   const formSchema = z.object({
     name: z
       .string()
@@ -39,6 +42,7 @@ export default function useLoginForm() {
   const submitValidForm = handleSubmit((val) => {
     console.log('Валидно!', val)
     // если все валидно - получаем val - объект со значениями
+    return val
   })
 
   const lockButton = () => {
@@ -52,14 +56,13 @@ export default function useLoginForm() {
 
   const onSubmit = async () => {
     if (isLocked.value) return
-
     localSubmitCount.value += 1
-
     if (localSubmitCount.value > MAX_CLICKS) {
       lockButton()
       return
     }
 
+    store.dispatch('auth/login', 'data')
     await submitValidForm()
   }
 

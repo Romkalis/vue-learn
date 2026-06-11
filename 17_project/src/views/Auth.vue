@@ -31,9 +31,14 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from 'vuex';
 import useLoginForm from '../composable/useLoginForm.ts'
 
 const { onSubmit, nError, name, nBlur, pError, password, pBlur, isButtonDisabled, isLocked, isSubmitting, submitCount, localSubmitCount } = useLoginForm()
+
+const store = useStore()
+console.log(store.state.auth.token)
+
 </script>
 
 <style scoped>
