@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: () => ({
-    token: null,
+    token: localStorage.getItem('JWT-token'),
   }),
   mutations: {
     setToken: (state, token) => {

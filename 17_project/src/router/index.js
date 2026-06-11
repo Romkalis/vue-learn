@@ -24,7 +24,7 @@ const routes = [
     alias: '/',
     component: Home,
     meta: {
-      layout: AuthLayout,
+      layout: MainLayout,
       auth: true,
     },
   },
@@ -33,7 +33,7 @@ const routes = [
     name: 'Help',
     component: Help,
     meta: {
-      layout: AuthLayout,
+      layout: MainLayout,
       auth: true,
     },
   },
@@ -41,7 +41,7 @@ const routes = [
     path: '/:notFound(.*)',
     component: NotFoundPage,
     meta: {
-      layout: AuthLayout,
+      layout: MainLayout,
       auth: true,
     },
   },
